@@ -11,7 +11,7 @@ class CallLogFileReaderTest extends FunSuite with Matchers {
     val input = "CallLogFileReaderTest.log"
 
     // When
-    val calls: Seq[domain.PhoneCall] = CallLogFileReader.read(input)
+    val calls: Seq[domain.PhoneCall] = CallLogFileReader(input)
 
     // Then
     calls.size shouldBe 2

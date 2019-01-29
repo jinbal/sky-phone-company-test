@@ -15,7 +15,7 @@ object CallLogFileReader {
     override val treatEmptyLineAsNil: Boolean = true
   }
 
-  def read(resource: String): Seq[domain.PhoneCall] = {
+  def apply(resource: String): Seq[domain.PhoneCall] = {
     val in = CSVReader.open(new InputStreamReader(getClass.getClassLoader.getResourceAsStream(resource), "UTF8"))
     in.iterator.flatMap { line =>
       line match {

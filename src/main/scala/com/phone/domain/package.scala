@@ -4,12 +4,15 @@ package object domain {
 
   type PhoneNumber = String
   type CustomerId = String
+  type PromoAdjustment = Double
 
-  type CallPriceStrategy = (PhoneCall) => Int
-  type PromotionCalculator = (Seq[PhoneCall]) => Int
+  type CallPriceStrategy = (PhoneCall) => Double
+  type PromotionCalculator = (Seq[PhoneCall], CallPriceStrategy) => PromoAdjustment
 
   case class PhoneCall(customerId: CustomerId, numberCalled: PhoneNumber, durationSeconds: Int)
 
-  case class DailyCustomerCallReport(customerId: CustomerId, callTotal: Int, promoAdjustment: Int, finalTotal: Int)
+  case class DailyCustomerCallReport(customerId: CustomerId, callTotal: Double, promoAdjustment: PromoAdjustment) {
+    def finalTotal = callTotal + promoAdjustment
+  }
 
 }
