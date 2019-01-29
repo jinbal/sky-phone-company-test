@@ -1,19 +1,22 @@
 package com.phone
 
+import com.phone.domain.PhoneCompany
+import com.phone.file.CallLogFileReader
 import org.scalatest.OptionValues._
 import org.scalatest.{FunSuite, Matchers}
 
 class PhoneCompanyAcceptanceTest extends FunSuite with Matchers with GenCommon {
 
   /**
-    * See calls-manual-solution.log for assertion values
+    * See calls-manual-solution.log for assertion values used in this test
     */
   test("Should correctly parse supplied call.log and generate call reports") {
     // Given
     val callLogResource = "calls.log"
+    val phoneCompany = new PhoneCompany(CallLogFileReader(callLogResource))
 
     // When
-    val reports = DailyCallReportPrinter(callLogResource)
+    val reports = phoneCompany.dailyCustomerCallReports()
 
     // Then
     reports.size shouldBe 2
