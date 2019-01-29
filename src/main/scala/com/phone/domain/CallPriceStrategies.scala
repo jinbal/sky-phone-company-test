@@ -8,6 +8,7 @@ object CallPriceStrategies {
     val duration = call.durationSeconds
     val threeMins = 180
     if (duration <= threeMins) {
+
       duration * primaryPerSecondPrice
     } else {
       val rem = duration - threeMins

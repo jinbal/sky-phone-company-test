@@ -1,7 +1,7 @@
 package com.phone
 
-import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.OptionValues._
+import org.scalatest.{FunSuite, Matchers}
 
 class PhoneCompanyAcceptanceTest extends FunSuite with Matchers with GenCommon {
 
@@ -13,20 +13,20 @@ class PhoneCompanyAcceptanceTest extends FunSuite with Matchers with GenCommon {
     val callLogResource = "calls.log"
 
     // When
-    val reports = DailyCallReportGenerator(callLogResource)
+    val reports = DailyCallReportPrinter(callLogResource)
 
     // Then
     reports.size shouldBe 2
     val accountA = reports.find(_.customerId == "A").value
-    accountA.callTotal shouldBe 52.67
-    accountA.promoAdjustment shouldBe -21.29
-    accountA.finalTotal shouldBe 31.38
+    accountA.callTotal shouldBe 52.67 +- 0.01
+    accountA.promoAdjustment shouldBe -21.29 +- 0.01
+    accountA.finalTotal shouldBe 31.38 +- 0.01
 
     val accountB = reports.find(_.customerId == "B").value
-    accountB.callTotal shouldBe 46.53
-    accountB.promoAdjustment shouldBe -27.63
-    accountB.finalTotal shouldBe 18.9
+    accountB.callTotal shouldBe 51.96 +- 0.01
+    accountB.promoAdjustment shouldBe -21.88 +- 0.01
+    accountB.finalTotal shouldBe 30.08 +- 0.01
 
-    reports.toString()
+    println(reports.toString())
   }
 }
